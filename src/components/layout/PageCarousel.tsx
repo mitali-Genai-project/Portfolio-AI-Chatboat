@@ -65,12 +65,16 @@ export function SideArrows({ pages, index, onPrev, onNext }: Omit<PagerProps, "o
   );
 }
 
-/** Prev / dots / next bar shown at the bottom of every page. */
+/**
+ * Prev / dots / next bar, fixed to the bottom of the viewport (h-20). Like the navbar it
+ * stops short of the open chat panel; <main> reserves the same height with pb-20.
+ */
 export function PagerBar({ pages, index, onPrev, onNext, onSelect }: PagerProps) {
   const prev = pages[wrap(index - 1, pages.length)];
   const next = pages[wrap(index + 1, pages.length)];
   return (
-    <nav aria-label="Page navigation" className="mx-auto mt-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 pb-10 sm:px-6">
+    <div className="fixed bottom-0 left-0 right-(--chat-offset) z-40 border-t border-line/60 bg-bg/80 backdrop-blur-md transition-[right] duration-300">
+    <nav aria-label="Page navigation" className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
       <button
         type="button"
         onClick={onPrev}
@@ -103,5 +107,6 @@ export function PagerBar({ pages, index, onPrev, onNext, onSelect }: PagerProps)
         {next.label} <ChevronRight className="size-4" aria-hidden />
       </button>
     </nav>
+    </div>
   );
 }
