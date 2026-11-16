@@ -1,0 +1,9 @@
+node_modules
+dist
+*.local
+.vercel
+
+# Secrets — never commit real keys
+.env
+.env.*
+!.env.example
