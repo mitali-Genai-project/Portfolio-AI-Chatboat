@@ -1,104 +1,55 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Download, MapPin } from "lucide-react";
+import { Download } from "lucide-react";
 import { profile } from "@/data/profile";
-import { SocialLinks } from "../SocialLinks";
-import { ButtonLink } from "../ui/Button";
+import { HeroGraph } from "../hero-graph/HeroGraph";
 
 const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, ease: "easeOut" as const, delay },
 });
 
+/**
+ * Home page: a compact identity line above a full-area 3D knowledge graph.
+ * Height = viewport minus the pager bar below (5rem); the fixed navbar is cleared with pt-16.
+ */
 export function Hero() {
   return (
-    <section id="top" className="relative isolate overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
-      {/* Background: soft teal glow + faint grid */}
+    <section id="top" className="relative isolate flex h-[calc(100svh-5rem)] min-h-[560px] flex-col overflow-hidden pt-16">
+      {/* Background: soft teal glow behind the graph + faint grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute top-[-10%] left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-accent/15 blur-[120px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--line)_1px,transparent_1px),linear-gradient(to_bottom,var(--line)_1px,transparent_1px)] bg-[size:56px_56px] opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 h-[min(70vh,640px)] w-[min(90vw,900px)] -translate-1/2 rounded-full bg-accent/10 blur-[120px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--line)_1px,transparent_1px),linear-gradient(to_bottom,var(--line)_1px,transparent_1px)] bg-[size:56px_56px] opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.25fr_1fr]">
-        <div>
-          <motion.p
-            {...fadeUp(0)}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-3 py-1.5 text-xs font-medium text-muted backdrop-blur"
-          >
-            <span className="size-2 rounded-full bg-accent" />
-            {profile.yearsOfExperience} years · Java Full Stack · GenAI
-          </motion.p>
-
-          <motion.h1 {...fadeUp(0.08)} className="text-4xl leading-[1.1] font-extrabold sm:text-6xl">
-            Hi, I'm {profile.name}.
-            <span className="mt-2 block bg-gradient-to-r from-accent to-sky-400 bg-clip-text text-transparent dark:to-sky-300">
-              {profile.title}
-            </span>
-          </motion.h1>
-
-          <motion.p {...fadeUp(0.16)} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            {profile.tagline}
-          </motion.p>
-
-          <motion.div {...fadeUp(0.24)} className="mt-9 flex flex-wrap items-center gap-3">
-            <ButtonLink href="#projects">
-              View projects <ArrowUpRight className="size-4" aria-hidden />
-            </ButtonLink>
-            <ButtonLink href={profile.resumeUrl} download={profile.resumeFileName} variant="secondary">
-              <Download className="size-4" aria-hidden /> Resume
-            </ButtonLink>
-          </motion.div>
-
-          <motion.div {...fadeUp(0.32)} className="mt-10 flex flex-wrap items-center gap-5">
-            <SocialLinks />
-            <span className="inline-flex items-center gap-1.5 text-sm text-muted">
-              <MapPin className="size-4" aria-hidden /> {profile.location}
-            </span>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-          className="hidden lg:block"
-        >
-          <CodeCard />
+      <div className="mx-auto w-full max-w-6xl shrink-0 px-4 pt-3 sm:px-6 sm:pt-6">
+        <motion.div {...fadeUp(0)}>
+          <h1 className="text-2xl leading-tight font-extrabold sm:text-3xl">{profile.name}</h1>
+          <p className="mt-1 text-sm font-medium text-accent sm:text-[15px]">{profile.title} | GenAI Enthusiast</p>
+          <p className="mt-1.5 inline-flex items-center gap-2 text-xs text-muted">
+            <span className="size-1.5 rounded-full bg-accent" aria-hidden />
+            {profile.yearsOfExperience} Years of Experience
+          </p>
         </motion.div>
+        {/* The graph's "Reset view" button sits directly below this, aligned to the same column. */}
+        <motion.a
+          {...fadeUp(0.1)}
+          href={profile.resumeUrl}
+          download={profile.resumeFileName}
+          className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-line bg-surface/70 px-3 py-1.5 text-xs font-semibold text-fg backdrop-blur transition hover:border-accent/60 hover:text-accent"
+        >
+          <Download className="size-3.5" aria-hidden /> Download Resume
+        </motion.a>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
+        className="min-h-0 w-full flex-1 pt-2"
+      >
+        <HeroGraph />
+      </motion.div>
     </section>
   );
 }
-
-function CodeCard() {
-  return (
-    <div className="rounded-2xl border border-line bg-surface/80 shadow-2xl shadow-black/10 backdrop-blur">
-      <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
-        <span className="size-2.5 rounded-full bg-line" />
-        <span className="size-2.5 rounded-full bg-line" />
-        <span className="size-2.5 rounded-full bg-line" />
-        <span className="ml-3 font-mono text-xs text-muted">Developer.java</span>
-      </div>
-      <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-6 text-muted">
-        <code>
-          <K>@Service</K>
-          {"\n"}
-          <K>public class</K> <T>Developer</T> {"{"}
-          {"\n"}  <K>String</K> name = <S>"{profile.name}"</S>;
-          {"\n"}  <K>String</K> role = <S>"{profile.title}"</S>;
-          {"\n"}  <K>int</K> years = <T>4</T>;
-          {"\n"}
-          {"\n"}  <T>List</T>&lt;<K>String</K>&gt; stack = <T>List</T>.of(
-          {"\n"}    <S>"Java"</S>, <S>"Spring Boot"</S>, <S>"React"</S>,
-          {"\n"}    <S>"GenAI"</S>
-          {"\n"}  );
-          {"\n"}{"}"}
-        </code>
-      </pre>
-    </div>
-  );
-}
-
-const K = ({ children }: { children: string }) => <span className="text-sky-600 dark:text-sky-300">{children}</span>;
-const T = ({ children }: { children: string | number }) => <span className="text-fg">{children}</span>;
-const S = ({ children }: { children: React.ReactNode }) => <span className="text-accent">{children}</span>;
