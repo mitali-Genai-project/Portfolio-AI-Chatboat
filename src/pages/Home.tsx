@@ -38,7 +38,8 @@ export default function Home() {
         Skip to content
       </a>
       <Navbar activeId={activeId} />
-      <main className="flex min-h-svh flex-col">
+      {/* pb-20 keeps page content clear of the fixed PagerBar. */}
+      <main className="flex min-h-svh flex-col pb-20">
         <PageCarousel activeId={activeId} direction={direction}>
           {pageContent[activeId]()}
         </PageCarousel>

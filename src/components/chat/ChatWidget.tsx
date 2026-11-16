@@ -184,7 +184,9 @@ export function ChatWidget({ service = apiChatService }: { service?: ChatService
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 25, delay: 0.4 }}
-        className={`fixed right-4 bottom-4 z-[70] grid size-14 place-items-center rounded-full bg-accent text-accent-fg shadow-lg shadow-accent/30 sm:right-6 sm:bottom-6 ${
+        // Sits above the fixed page bar (h-20) on smaller screens; on xl there's room beside
+        // the bar's buttons, so it's centred inside the bar instead.
+        className={`fixed right-4 bottom-24 z-[70] grid size-14 place-items-center rounded-full bg-accent text-accent-fg shadow-lg shadow-accent/30 sm:right-6 xl:bottom-3 ${
           open ? "hidden" : ""
         }`}
       >
