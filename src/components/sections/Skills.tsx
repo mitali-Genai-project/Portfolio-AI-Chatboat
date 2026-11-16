@@ -11,7 +11,6 @@ export function Skills() {
       eyebrow="02 · Skills"
       title="Technical skills"
       intro="A full stack toolkit centred on the Java ecosystem, with React and Angular front ends, event-driven messaging and cloud delivery."
-      className="bg-surface-2/40"
     >
       <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map(({ title, icon: Icon, skills }, i) => (

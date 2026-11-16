@@ -28,6 +28,13 @@ export function ChatWidget({ service = apiChatService }: { service?: ChatService
     wasOpen.current = open;
   }, [open]);
 
+  // On wider screens the chat is a side panel: reserve its width so the page reflows beside it.
+  useEffect(() => {
+    if (!open) return;
+    document.documentElement.classList.add("chat-open");
+    return () => document.documentElement.classList.remove("chat-open");
+  }, [open]);
+
   // Escape closes; lock page scroll while the full-screen mobile sheet is open.
   useEffect(() => {
     if (!open) return;
@@ -62,12 +69,11 @@ export function ChatWidget({ service = apiChatService }: { service?: ChatService
             id="chat-window"
             role="dialog"
             aria-labelledby="chat-title"
-            initial={{ opacity: 0, y: 16, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.97 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            style={{ transformOrigin: "bottom right" }}
-            className="fixed inset-0 z-[70] flex flex-col bg-surface sm:inset-auto sm:right-6 sm:bottom-24 sm:h-[min(620px,calc(100dvh-8rem))] sm:w-[400px] sm:rounded-2xl sm:border sm:border-line sm:shadow-2xl sm:shadow-black/20"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+            className="fixed inset-0 z-[70] flex flex-col bg-surface sm:left-auto sm:w-[min(400px,45vw)] sm:border-l sm:border-line sm:shadow-2xl sm:shadow-black/20"
           >
             {/* Header */}
             <header className="flex items-center gap-3 border-b border-line px-4 py-3">
@@ -165,7 +171,7 @@ export function ChatWidget({ service = apiChatService }: { service?: ChatService
         )}
       </AnimatePresence>
 
-      {/* Launcher (hidden behind the full-screen sheet on mobile) */}
+      {/* Launcher (hidden while the panel is open; the panel has its own close button) */}
       <motion.button
         ref={launcherRef}
         type="button"
@@ -179,7 +185,7 @@ export function ChatWidget({ service = apiChatService }: { service?: ChatService
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 25, delay: 0.4 }}
         className={`fixed right-4 bottom-4 z-[70] grid size-14 place-items-center rounded-full bg-accent text-accent-fg shadow-lg shadow-accent/30 sm:right-6 sm:bottom-6 ${
-          open ? "max-sm:hidden" : ""
+          open ? "hidden" : ""
         }`}
       >
         <AnimatePresence mode="wait" initial={false}>

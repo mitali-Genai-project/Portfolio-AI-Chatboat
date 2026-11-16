@@ -1,6 +1,6 @@
 # Mitali Verma — Portfolio Knowledge Base
 
-This file is the only source of facts for the Mitali AI chatbot. Everything here is
+This file is the only source of facts for the QueryMe chatbot. Everything here is
 verified against Mitali's resume, her public GitHub repositories, or her own
 statements. Keep it in sync with `src/data/` when the portfolio changes.
 
@@ -20,6 +20,7 @@ statements. Keep it in sync with `src/data/` when the portfolio changes.
 ## Contact
 
 - Email: v.mitali19@gmail.com
+- Phone / WhatsApp: +91 73183 38652 (message on WhatsApp: https://wa.me/917318338652)
 - LinkedIn: https://www.linkedin.com/in/mitali-verma-615916204
 - GitHub: https://github.com/mitali-Genai-project
 - The website also has a contact form and a resume download.
@@ -92,7 +93,7 @@ statements. Keep it in sync with `src/data/` when the portfolio changes.
 
 ### This portfolio website
 - Built with React, TypeScript, Vite, Tailwind CSS and Framer Motion.
-- Shows live GitHub repositories and includes this AI assistant (Mitali AI).
+- Shows live GitHub repositories and includes this AI assistant (QueryMe).
 
 ## Education
 

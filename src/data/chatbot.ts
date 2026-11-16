@@ -1,8 +1,8 @@
 export const chatbot = {
-  name: "Mitali AI",
+  name: "QueryMe",
   subtitle: "Ask about Mitali's work",
   greeting:
-    "Hi! I'm Mitali AI. I can answer questions about Mitali's experience, skills, projects and how to get in touch. What would you like to know?",
+    "Hi! I'm QueryMe. I can answer questions about Mitali's experience, skills, projects and how to get in touch. What would you like to know?",
   placeholder: "Ask a question…",
   suggestedQuestions: [
     "Tell me about Mitali's experience.",

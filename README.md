@@ -1,6 +1,6 @@
 # Mitali Verma — Portfolio
 
-React + TypeScript + Vite portfolio with live GitHub data and **Mitali AI**, a chatbot
+React + TypeScript + Vite portfolio with live GitHub data and **QueryMe**, a chatbot
 that answers questions about Mitali through a Vercel serverless function, powered by
 Google Gemini (free tier). The LLM is pluggable; a mock provider is included for testing.
 

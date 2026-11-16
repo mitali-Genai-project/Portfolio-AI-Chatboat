@@ -9,3 +9,6 @@ export const navItems: NavItem[] = [
   { id: "resume", label: "Resume" },
   { id: "contact", label: "Contact" },
 ];
+
+/** Every page in the circular carousel, in order. "top" is the Hero / home page. */
+export const pages: NavItem[] = [{ id: "top", label: "Home" }, ...navItems];

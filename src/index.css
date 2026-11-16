@@ -50,8 +50,25 @@
     scroll-padding-top: 5rem;
   }
 
+  /* Width the open chat side panel reserves on the right (0 when closed / on mobile,
+     where the chat is a full-screen sheet instead). */
+  :root {
+    --chat-offset: 0px;
+  }
+
+  @media (min-width: 640px) {
+    html.chat-open {
+      --chat-offset: min(400px, 45vw);
+    }
+  }
+
   body {
-    @apply bg-bg font-sans text-fg transition-colors duration-300;
+    @apply bg-bg font-sans text-fg;
+    padding-right: var(--chat-offset);
+    transition:
+      background-color 300ms,
+      color 300ms,
+      padding-right 300ms cubic-bezier(0.32, 0.72, 0, 1);
   }
 
   h1,

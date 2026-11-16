@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-react";
 export interface SocialLink {
   label: string;
   href: string;
-  kind: "github" | "linkedin" | "email";
+  kind: "github" | "linkedin" | "email" | "whatsapp";
 }
 
 export interface Profile {
@@ -12,6 +12,10 @@ export interface Profile {
   tagline: string;
   location: string;
   email: string;
+  /** Shown to visitors, e.g. "+91 73183 38652". */
+  phone: string;
+  /** WhatsApp click-to-chat link (https://wa.me/<country code + number, digits only>). */
+  whatsappUrl: string;
   yearsOfExperience: string;
   about: string[];
   highlights: { value: string; label: string }[];

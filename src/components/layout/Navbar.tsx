@@ -2,15 +2,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { navItems } from "@/data/navigation";
-import { useActiveSection } from "@/hooks/useActiveSection";
 import { ThemeToggle } from "../ThemeToggle";
 
-const sectionIds = navItems.map((n) => n.id);
+/** Clicking the page you're already on just returns to its top. */
+const toTopIfCurrent = (isCurrent: boolean) => () => {
+  if (isCurrent) window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
-export function Navbar() {
+export function Navbar({ activeId }: { activeId: string }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const active = useActiveSection(sectionIds);
+  const active = activeId;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -30,21 +32,28 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+      className={`fixed top-0 right-(--chat-offset) left-0 z-50 border-b transition-[right,background-color,border-color] duration-300 ${
         solid ? "border-line bg-bg/80 backdrop-blur-lg" : "border-transparent"
       }`}
     >
-      <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href="#top" className="font-display text-lg font-extrabold tracking-tight">
-          MV<span className="text-accent">.</span>
-        </a>
+      <nav aria-label="Primary" className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6">
+        <div className="flex items-center gap-3 justify-self-start">
+          {/* Top-left corner of the window on wide screens; just before the logo otherwise. */}
+          <div className="xl:absolute xl:top-1/2 xl:left-4 xl:-translate-y-1/2">
+            <ThemeToggle />
+          </div>
+          <a href="#top" onClick={toTopIfCurrent(active === "top")} className="font-display text-lg font-extrabold tracking-tight">
+            MV<span className="text-accent">.</span>
+          </a>
+        </div>
 
         <ul className="hidden items-center gap-1 lg:flex">
           {navItems.map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
-                aria-current={active === id ? "true" : undefined}
+                onClick={toTopIfCurrent(active === id)}
+                aria-current={active === id ? "page" : undefined}
                 className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
                   active === id ? "text-accent" : "text-muted"
                 }`}
@@ -55,8 +64,7 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
+        <div className="col-start-3 flex items-center gap-2 justify-self-end">
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
@@ -84,7 +92,10 @@ export function Navbar() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    toTopIfCurrent(active === id)();
+                  }}
                   className={`block py-3 text-base font-medium ${active === id ? "text-accent" : "text-fg"}`}
                 >
                   {label}

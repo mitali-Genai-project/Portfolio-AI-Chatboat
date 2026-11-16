@@ -7,7 +7,7 @@ import { createChatHandler } from "./handler";
 
 const hasKey = Boolean(process.env.GEMINI_API_KEY);
 
-describe.skipIf(!hasKey)("Mitali AI with Gemini (live)", () => {
+describe.skipIf(!hasKey)("QueryMe with Gemini (live)", () => {
   const handler = createChatHandler({ config: { ...readConfig(), provider: "gemini" } });
 
   const ask = async (content: string) => {

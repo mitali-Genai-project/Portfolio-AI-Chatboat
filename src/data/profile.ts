@@ -8,6 +8,8 @@ export const profile: Profile = {
     "I build scalable enterprise applications with Java, Spring Boot and microservices, with front ends in React and Angular — and independent GenAI projects on the side.",
   location: "India",
   email: "v.mitali19@gmail.com",
+  phone: "+91 73183 38652",
+  whatsappUrl: `https://wa.me/917318338652?text=${encodeURIComponent("Hi Mitali, I came across your portfolio and would like to connect.")}`,
   yearsOfExperience: "4+",
   about: [
     "I'm a Java Full Stack Developer with 4+ years of experience building scalable enterprise applications using Java, Spring Boot, Spring Security, microservices and REST APIs, with front ends in React and Angular.",
@@ -26,5 +28,6 @@ export const profile: Profile = {
     { label: "GitHub", href: "https://github.com/mitali-Genai-project", kind: "github" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/mitali-verma-615916204", kind: "linkedin" },
     { label: "Email", href: "mailto:v.mitali19@gmail.com", kind: "email" },
+    { label: "WhatsApp", href: "https://wa.me/917318338652", kind: "whatsapp" },
   ],
 };

@@ -13,7 +13,6 @@ export function Projects() {
       eyebrow="04 · Projects"
       title="Selected projects"
       intro="A selection of things I've built."
-      className="bg-surface-2/40"
     >
       <ul className="grid gap-6 md:grid-cols-2">
         {projects.map((p, i) => {
